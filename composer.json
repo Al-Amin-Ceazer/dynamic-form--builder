@@ -1,0 +1,19 @@
+{
+    "name": "alamin/form",
+    "description": "This will generate dynamic form based on json data",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "bs23.azam",
+            "email": "alamin.azam@brainstation-23.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "AlAmin\\Form\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {}
+}
