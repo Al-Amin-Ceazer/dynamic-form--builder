@@ -1,17 +1,24 @@
 {
-    "name": "alamin/form",
+    "name": "alaminceazer/form",
     "description": "This will generate dynamic form based on json data",
     "type": "library",
     "license": "MIT",
     "authors": [
         {
-            "name": "bs23.azam",
-            "email": "alamin.azam@brainstation-23.com"
+            "name": "alaminceazer",
+            "email": "alaminibnazam@gmail.com"
         }
     ],
     "autoload": {
         "psr-4": {
             "AlAmin\\Form\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "AlAmin\\Form\\FormServiceProvider"
+            ]
         }
     },
     "minimum-stability": "dev",
