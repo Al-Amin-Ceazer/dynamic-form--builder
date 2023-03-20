@@ -1,6 +1,6 @@
 {
     "name": "alaminceazer/form",
-    "description": "This will generate dynamic form based on json data",
+    "description": "This will generate dynamic form data based on json data structure",
     "type": "library",
     "license": "MIT",
     "authors": [
