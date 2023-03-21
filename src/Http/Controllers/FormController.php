@@ -8,31 +8,23 @@ use Illuminate\Http\Request;
 
 class FormController extends Controller
 {
-    public function getFromBySlug($key) : \Illuminate\Http\JsonResponse
+    public function getFrom($key) : \Illuminate\Http\JsonResponse
     {
         $keyName = config('form.get_by_key_name');
 
         $data = (new Form)->setTable(config('form.table_name'))->where($keyName, $key)->first();
 
-        if(empty($data)) {
+        if (empty($data)) {
             return response()->json(['data' => []], 200);
         }
 
-        $res = [
-            'form_id'    => $data->form_id,
-            'slug'       => $data->slug,
-            'cache_key'  => $data->cache_key,
-            'updated_at' => $data->updated_at,
-            'data'       => json_decode($data->data),
-        ];
-
-        return response()->json(['data' => $res], 200);
+        return response()->json(['data' => $this->responseBuilder($data)], 200);
     }
 
     /**
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function updateFromBySlug(Request $request) : \Illuminate\Http\JsonResponse
+    public function updateFrom(Request $request) : \Illuminate\Http\JsonResponse
     {
         $this->validate($request, [
             'slug'      => 'required|string:250',
@@ -44,6 +36,7 @@ class FormController extends Controller
 
         $data = (new Form)->setTable(config('form.table_name'))->updateOrCreate([
             'form_id' => $request->get('form_id'),
+            'source'  => $request->get('source'),
         ], [
             'slug'      => $request->get('slug'),
             'cache_key' => $request->get('cache_key'),
@@ -51,14 +44,18 @@ class FormController extends Controller
             'source'    => $request->get('source'),
         ]);
 
-        $res = [
+        return response()->json(['data' => $this->responseBuilder($data)], 201);
+    }
+
+    private function responseBuilder(Form $data) : array
+    {
+        return [
+            'source'     => $data->source,
             'form_id'    => $data->form_id,
             'slug'       => $data->slug,
             'cache_key'  => $data->cache_key,
             'updated_at' => $data->updated_at,
             'data'       => json_decode($data->data),
         ];
-
-        return response()->json(['data' => $res], 201);
     }
 }
