@@ -28,7 +28,7 @@ php artisan vendor:publish --provider="AlAmin\Form\FormServiceProvider"
 ```
 
 You should now have a `config/form.php` file that allows you to configure the basics of this package
-And that's it! Start building out some awesome Form!
+And that's it!
 
 # Lumen Installation
 ## Copy the config
@@ -47,3 +47,26 @@ Add the following snippet to the `bootstrap/app.php` file under the providers se
 ```php
 $app->register(AlAmin\Form\FormServiceProvider::class);
 ```
+
+## API Documentation
+
+
+
+```curl
+// Sample POST request
+curl --location --request POST '{{base_url}}/dynamic-form/forms' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "source": "MYGP_new",
+    "form_id": 344,
+    "slug": "success-page",
+    "cache_key": "some:key",
+    "data": "{\"data1\": [], \"data2\": []}"
+}'
+
+//Sample GET request
+curl --location --request GET '{{base_url}}/dynamic-form/forms/1' \
+--header 'Content-Type: application/json'
+```
+
+Start building out some awesome Form!
