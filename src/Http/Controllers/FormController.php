@@ -8,11 +8,11 @@ use Illuminate\Http\Request;
 
 class FormController extends Controller
 {
-    public function getFrom($key) : \Illuminate\Http\JsonResponse
+    public function getFrom(Form $form, mixed $key) : \Illuminate\Http\JsonResponse
     {
         $keyName = config('form.get_by_key_name');
 
-        $data = (new Form)->setTable(config('form.table_name'))->where($keyName, $key)->first();
+        $data = $form->setTable(config('form.table_name'))->where($keyName, $key)->first();
 
         if (empty($data)) {
             return response()->json(['data' => []], 200);
@@ -24,7 +24,7 @@ class FormController extends Controller
     /**
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function updateFrom(Request $request) : \Illuminate\Http\JsonResponse
+    public function updateFrom(Request $request, Form $form) : \Illuminate\Http\JsonResponse
     {
         $this->validate($request, [
             'slug'      => 'required|string:250',
@@ -34,7 +34,7 @@ class FormController extends Controller
             'form_id'   => 'required|int',
         ]);
 
-        $data = (new Form)->setTable(config('form.table_name'))->updateOrCreate([
+        $data = $form->setTable(config('form.table_name'))->updateOrCreate([
             'form_id' => $request->get('form_id'),
             'source'  => $request->get('source'),
         ], [
