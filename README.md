@@ -33,7 +33,7 @@ And that's it!
 # Lumen Installation
 ## Copy the config
 
-Copy the config file from `vendor/alaminceazer/from/config/form.php` to config folder of your Lumen application and rename it to `form.php`
+Copy the config file from `vendor/alaminceazer/from/src/config/form.php` to config folder of your Lumen application and rename it to `form.php`
 
 Register your config by adding the following in the `bootstrap/app.php` before middleware declaration.
 
