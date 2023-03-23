@@ -15,7 +15,7 @@ class FormServiceProvider extends ServiceProvider
             'form'
         );
         $this->publishes([
-            __DIR__ . '/config/form.php' => config_path('form.php')
+            __DIR__ . '/config/form.php' => app()->basePath() . '/config/form.php'
         ],'form-config');
     }
 
