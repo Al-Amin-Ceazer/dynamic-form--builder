@@ -48,6 +48,9 @@ Add the following snippet to the `bootstrap/app.php` file under the providers se
 $app->register(AlAmin\Form\FormServiceProvider::class);
 ```
 
+<b> NOTE: </b> By default in form.php configuration file `get_key_by_name` value is `id`.
+You need change  this key value to `form_id` to get data by the form_id you provided while creation.
+
 ## API Documentation
 
 
