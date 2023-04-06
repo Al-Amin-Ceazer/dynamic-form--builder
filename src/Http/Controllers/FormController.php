@@ -12,7 +12,7 @@ class FormController extends Controller
     {
         $keyName = config('form.get_by_key_name');
 
-        $data = $form->setTable(config('form.table_name'))->where($keyName, $key)->first();
+        $data = $form->setTable(config('form.table_name'))->newQuery()->where($keyName, $key)->first();
 
         if (empty($data)) {
             return response()->json(['data' => []], 200);
@@ -34,7 +34,7 @@ class FormController extends Controller
             'form_id'   => 'required|int',
         ]);
 
-        $data = $form->setTable(config('form.table_name'))->updateOrCreate([
+        $data = $form->setTable(config('form.table_name'))->newQuery()->updateOrCreate([
             'form_id' => $request->get('form_id'),
             'source'  => $request->get('source'),
         ], [
@@ -47,15 +47,24 @@ class FormController extends Controller
         return response()->json(['data' => $this->responseBuilder($data)], 201);
     }
 
-    private function responseBuilder(Form $data) : array
+    public function DeleteForm(Form $form, mixed $key): \Illuminate\Http\JsonResponse
+    {
+        $keyName = config('form.get_by_key_name');
+
+        $form->setTable(config('form.table_name'))->newQuery()->where($keyName, $key)->delete();
+
+        return response()->json(['status' => 'success'], 200);
+    }
+
+    private function responseBuilder($data) : array
     {
         return [
-            'source'     => $data->source,
-            'form_id'    => $data->form_id,
-            'slug'       => $data->slug,
-            'cache_key'  => $data->cache_key,
-            'updated_at' => $data->updated_at,
-            'data'       => json_decode($data->data),
+            'source'     => $data->source ?? '',
+            'form_id'    => $data->form_id ?? '',
+            'slug'       => $data->slug ?? '',
+            'cache_key'  => $data->cache_key ?? '',
+            'updated_at' => $data->updated_at ?? '',
+            'data'       => isset($data->data) ? json_decode($data->data) : null,
         ];
     }
 }
