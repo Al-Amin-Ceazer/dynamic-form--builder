@@ -29,7 +29,7 @@ class FormController extends Controller
         $this->validate($request, [
             'slug'      => 'required|string:250',
             'cache_key' => 'required|string:250',
-            'data'      => 'required|json',
+            'data'      => 'nullable|json',
             'source'    => 'required|string:250',
             'form_id'   => 'required|int',
         ]);

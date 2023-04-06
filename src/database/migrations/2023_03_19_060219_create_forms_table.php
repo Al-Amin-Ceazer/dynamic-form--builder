@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('slug');
             $table->string('cache_key');
-            $table->json('data');
+            $table->json('data')->nullable();
             $table->string('source');
             $table->bigInteger('form_id');
             $table->timestamps();
