@@ -67,4 +67,17 @@ class FormController extends Controller
             'data'       => isset($data->data) ? json_decode($data->data) : null,
         ];
     }
+
+    public function getFormDataValue(Form $form, mixed $key) : \Illuminate\Http\JsonResponse
+    {
+        $keyName = config('form.dynamic_form_data.key_name');
+
+        $data = $form->setTable(config('form.table_name'))->newQuery()->where($keyName, $key)->first();
+
+        if (empty($data)) {
+            return response()->json([], 200);
+        }
+
+        return response()->json(isset($data->data) ? json_decode($data->data) : null, 200);
+    }
 }
